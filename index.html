@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+      text-align: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    h1 {
+      font-size: 3em;
+      margin-top: 1em;
+      animation: fadeInDown 1s ease-out;
+    }
+    .cake {
+      font-size: 5em;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .cake:hover {
+      transform: scale(1.1);
+    }
+    .message {
+      margin: 2em auto;
+      width: 90%;
+      max-width: 600px;
+      background: rgba(255, 255, 255, 0.15);
+      padding: 1.5em;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      display: none;
+      animation: fadeInUp 1s ease forwards;
+    }
+    .photo {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin: 1em auto;
+      border: 4px solid white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+    audio {
+      display: none;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday, <span id="name">My Jaan</span> 🎉</h1>
+  <img src="your-photo.jpg" alt="Birthday Person" class="photo">
+  <div class="cake" id="cake">🎂</div>
+  <div class="message" id="birthdayMessage">
+    🎉 Happy Birthday, My Jaan! 💖<br/><br/>
+    Even though miles separate us today, my heart is wrapped around yours — always. 🌍❤️<br/><br/>
+    Your strength, your smile, and your dreams inspire me every single day. 💪✨<br/>
+    I know this year will bring you closer to everything you’ve ever hoped for.<br/><br/>
+    No distance is ever too far for a love like ours. One day soon, we'll celebrate together, hand in hand. 💞<br/><br/>
+    Until then, know that I’m always with you in spirit — cheering you on, loving you deeper every day.<br/><br/>
+    🕯️ Blow out your candles, make a wish, and keep shining like the star you are. 🌟<br/><br/>
+    Forever yours,<br/>
+    ❤️ Your [Your Name Here]
+  </div>
+  <audio id="bgMusic" autoplay loop>
+    <source src="birthday-music.mp3" type="audio/mp3">
+  </audio>
+  <script>
+    const cake = document.getElementById('cake');
+    const message = document.getElementById('birthdayMessage');
+    cake.addEventListener('click', () => {
+      cake.textContent = '🍰';
+      message.style.display = 'block';
+      confetti();
+    });
+
+    function confetti() {
+      const duration = 3 * 1000;
+      const animationEnd = Date.now() + duration;
+      const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 1000 };
+
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      const interval = setInterval(() => {
+        const timeLeft = animationEnd - Date.now();
+
+        if (timeLeft <= 0) {
+          return clearInterval(interval);
+        }
+
+        const particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0, 1), y: Math.random() - 0.2 }
+        }));
+      }, 250);
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+</body>
+</html>
